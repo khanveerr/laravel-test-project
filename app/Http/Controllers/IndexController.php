@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Menu;
+use App\Article;
+use App\Http\Requests;
+
+class IndexController extends Controller
+{
+    	public function index() {
+		$menus = Menu::orderBy('id')->get();
+		return view('welcome',compact('menus'));
+	}
+
+	public function loadArticles($pageName,$menuId) {
+		
+		$menus = Menu::orderBy('id')->get();
+		$articles = Article::where('menu_id','=',$menuId)->get();
+		return view('all-articles',compact('articles','pageName','menus'));
+
+	}
+
+	public function singleArticle($link) {
+		
+		$menus = Menu::orderBy('id')->get();
+		$article = Article::where('link','=',$link)->first();
+		$article->alltags = explode(",",$article->tags);
+		return view('single-article',compact('article','menus'));
+
+	}
+
+}

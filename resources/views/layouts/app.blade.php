@@ -39,16 +39,24 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <!--<a class="navbar-brand" href="{{ url('/') }}">
                     Laravel
-                </a>
+                </a>-->
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
+			@if (Auth::guest())
+				@if(!empty($menus))
+					@foreach($menus as $menu)
+						<li><a href="{{ URL::to('/') }}/all-articles/{{ $menu->name }}/{{ $menu->id }}">{{ $menu->name }}</a></li>
+					@endforeach
+				@endif
+			@else
                     	<li><a href="{{ url('/menus') }}">Menu</a></li>
 			<li><a href="{{ url('/articles') }}">Article</a></li>
+			@endif
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -56,7 +64,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        <!--<li><a href="{{ url('/register') }}">Register</a></li>-->
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -79,5 +87,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+	<script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
 </body>
 </html>

@@ -19,14 +19,16 @@
 					</tr>
 				</thead>
 				<tbody>
+					@foreach($menus as $menu)
 					<tr>
-						<td>1</td>
-						<td>Home</td>
+						<td>{{ $menu->id }}</td>
+						<td>{{ $menu->name }}</td>
 						<td>
-							<span class="label label-primary"><a style="color:#FFFFFF;" href="#">edit</a></span>
-							<span class="label label-danger"><a style="color:#FFFFFF;" href="#">delete</a></span>
+							<span class="label label-primary"><a style="color:#FFFFFF;" href="{{ URL::to('edit/menu') }}/{{ $menu->id }}">edit</a></span>
+							<span class="label label-danger"><a class="deleteMenu" style="color:#FFFFFF;" id="{{ $menu->id }}" rel="{{ URL::to('/') }}">delete</a></span>
 						</td>
 					</tr>
+					@endforeach
 				</tbody>
 		  	</table>
 		</div>
